@@ -1,0 +1,46 @@
+---
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-500.css';
+import '@fontsource/manrope/latin-600.css';
+import '@fontsource/manrope/latin-700.css';
+import '@fontsource/manrope/latin-800.css';
+import '../styles/globals.css';
+import { site } from '../config/site';
+interface Props { title?: string; description?: string }
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'Person', name: site.name,
+  url: Astro.site?.toString(), image: new URL('/images/profile.jpg', Astro.site).toString(),
+  jobTitle: 'Gerente de Operaciones, Logística y Supply Chain',
+  description, email: site.email, telephone: site.phoneRaw,
+  sameAs: [site.linkedinUrl], knowsAbout: ['Dirección de operaciones', 'Logística minera', 'Supply Chain', 'Administración de contratos', 'Seguridad operacional'],
+};
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="image" href="/images/profile.webp" fetchpriority="high" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={site.keywords.join(', ')} />
+    <meta name="author" content={site.name} />
+    <meta name="theme-color" content="#f7f8f5" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(site.ogImage, Astro.site)} />
+    <meta property="og:locale" content="es_CL" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(site.ogImage, Astro.site)} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body><a href="#main" class="skip-link">Saltar al contenido</a><slot /></body>
+</html>
