@@ -1,3 +1,5 @@
+import { assetPath } from '../lib/assetPath';
+
 export const site = {
   name: 'Yamir Moisés Rojo Andrade',
   shortName: 'Yamir Rojo',
@@ -13,9 +15,9 @@ export const site = {
   linkedinUrl: 'https://www.linkedin.com/in/yamirrojo/',
   location: 'Antofagasta, Chile',
   birthDate: '1982-01-29',
-  cvPdf: '/documents/yamir-rojo-perfil-ejecutivo.pdf',
+  cvPdf: assetPath('/documents/yamir-rojo-perfil-ejecutivo.pdf'),
   cvPdfDownloadName: 'Yamir Rojo - Perfil ejecutivo.pdf',
-  ogImage: '/og-image.jpg',
+  ogImage: assetPath('/og-image.jpg'),
   keywords: [
     'Gerente de Operaciones',
     'Supply Chain',

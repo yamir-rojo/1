@@ -15,6 +15,10 @@ for (const item of manifest) {
   assert(item.captionEs && item.alt, `Missing caption: ${item.id}`);
 }
 const assets = [...html.matchAll(/(?:src|href)="(\/(?!\/)[^"#?]+)"/g)].map(match => match[1]);
-for (const path of assets) assert(existsSync(`dist${path}`), `Missing built asset: ${path}`);
+const basePath = (process.env.BASE_PATH || '').replace(/\/$/, '');
+for (const path of assets) {
+  const localPath = basePath && path.startsWith(`${basePath}/`) ? path.slice(basePath.length) : path;
+  assert(existsSync(`dist${localPath}`), `Missing built asset: ${path}`);
+}
 assert.deepEqual(readdirSync('dist/documents'), ['yamir-rojo-perfil-ejecutivo.pdf']);
 console.log(`Site integrity OK: ${anchors.length} section links, ${manifest.length} gallery entries, ${assets.length} built asset references, one executive PDF.`);

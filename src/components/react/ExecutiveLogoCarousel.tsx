@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getCompanyLogo } from '../../config/companyLogos';
 import type { CompanyRef, Lang } from '../../content/types';
+import { assetPath } from '../../lib/assetPath';
 
 export default function ExecutiveLogoCarousel({ companies, lang }: { companies: CompanyRef[]; lang: Lang }) {
   const [paused, setPaused] = useState(false);
@@ -37,7 +38,7 @@ export default function ExecutiveLogoCarousel({ companies, lang }: { companies: 
                       {company.textOnly || logo.textOnly || !logo.src ? (
                         <span className="logo-carousel-wordmark">{company.name}</span>
                       ) : (
-                        <img src={logo.src} alt={duplicate ? '' : company.name} width="150" height="56" loading="eager" decoding="async" draggable={false}/>
+                        <img src={assetPath(logo.src)} alt={duplicate ? '' : company.name} width="150" height="56" loading="eager" decoding="async" draggable={false}/>
                       )}
                     </div>
                   );

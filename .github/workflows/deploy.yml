@@ -36,6 +36,7 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Configure GitHub Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
@@ -43,6 +44,9 @@ jobs:
 
       - name: Validate and build
         run: pnpm run check
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_ORIGIN: ${{ steps.pages.outputs.origin }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
